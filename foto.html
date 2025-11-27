@@ -8,37 +8,40 @@
 	<link rel="stylesheet" href="normalize.css">
 	<title>Foto do Lucas!</title>
 	<style type="text/css">
-		body {
-			background-image: url(imagens/Foto\ Linda.jpeg);
-			background-size: cover;
-			background-repeat: no-repeat;
-			background-size: contain;
-			background-position: center top;
-			background-color: #54260d;
-			background-attachment: fixed;
-		}
+
+body {
+		background-image: url(imagens/Foto\ Linda.jpeg);
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-size: contain;
+		background-position: center top;
+		background-color: #54260d;
+		background-attachment: fixed;
+    font-family: SuperChiby;}
+
+body:hover{
+	background-image: url(imagens/Foto\ Gorda.jpeg);
+	transition-duration: 15s;
+	transition-delay: 2s;
+}
 
 		ul {
 			list-style-type: none;
 		}
 
-		@font-face {
-			font-family: "PzzTwr";
-			src: url("fontes/PzzTwr.woff");
+		footer{
+			background-position: center;
+			text-align: center;
 		}
 
-		body {
-			font-family: PzzTwr;
-		}
 	</style>
 </head>
 
 <body class="overflow">
 	<!-- <> -->
-	<ul>
-		<li><a href="index.html" class="Borda esquerda branco" id="transicaolink">
+			<div><a href="index.html" class="Borda esquerda branco" id="transicaolink">
 				Site Principal
-			</a></li>
+			</a></div>
 
 		<br>
 		<br>
@@ -70,13 +73,8 @@
 		<br>
 		<br>
 		<br>
-		<br>
-		<br>
-		<br>
-		<br>
 
-
-<br><footer class="branco noscroll">&copy; <time>2025</time> - Lucas Oliveira de Queiroz</footer>
+<br> <div class="borda-texto"><footer class="branco centralizar">&copy; <time>2025</time> - Lucas Oliveira de Queiroz</footer></div>
 </body>
 
 </html>

@@ -24,3 +24,9 @@ Site do Lucas V1.0: O primeiro site que eu fiz em toda a minha vida, e eu estou 
 
 3- Site do Lucas V1.2.1/V1.2.2
 1) O arquivo "Avisos Importantes!" sofreu algumas melhoras de design.
+
+4- Site do Lucas V1.3
+1) Foi adicionado uma interação com a estrela amarela na "Página Inicial".
+2) Foi adicionado uma interação específica na página "Foto do Lucas!"
+3) Foi inplementado algumas mudanças de qualidade de vida/detalhes.
+?) fatal_error.

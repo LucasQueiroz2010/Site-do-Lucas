@@ -40,7 +40,7 @@
 
 		.esquerda {
 			text-align: left;
-			left: 1px;
+			background-position: left;
 		}
 
 		.t20px {
@@ -49,12 +49,6 @@
 
 		.noscroll {
 			background-attachment: fixed;
-		}
-
-		.inline {
-			border: 5px groove #8b4513;
-			padding: 5px;
-			display: inline-block;
 		}
 
 		.t40px {
@@ -271,16 +265,26 @@
 		.conteudo {
 			text-align: justify;
 			padding: 50px 80px;
-			background: #777;
+			background: #54260d;
 		}
 
 		.fatal_error {
-			bottom: 0;
-			right: 0;
+			position: relative;
+			top: 0px;
+			bottom: 1000px;
+			left: 75px;
+			right: 0px;
+			text-align: right;
+			color: red;
 
 			a {
 				color: red;
+				cursor: wait;
 			}
+		}
+
+		.fatal_error:hover{
+			cursor: default;
 		}
 
 		.overflow {
@@ -301,118 +305,35 @@
 			text-shadow: 20px 20px black;
 		}
 
-		@keyframes animacao-estelar {
-			from {
-				background: linear-gradient(to right, #46220f, #704214, #aa7444);
-				clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-			}
-
-			to {
-				background: linear-gradient(to right, #46220f, #704214, #aa7444);
-				clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-			}
-		}
-
-		#estrela1 {
-			width: 300px;
-			height: 300px;
-			animation: animacao-estelar 1s linear infinite, rotacao-estrela 10s linear infinite;
-			background: linear-gradient(to right, #46220f, #704214, #aa7444);
-			background-size: 200% 100%;
-			background-position: center;
-			-webkit-clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-			clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-
-		}
-
-		@keyframes animacao-estelar-subida {
-			from {
-				background: linear-gradient(to bottom, #fff680, #ffec00, #FFD700);
-				clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-			}
-
-			to {
-				background: linear-gradient(to bottom, #fff680, #ffec00, #FFD700);
-				clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-			}
-		}
-
-		#estrela2 {
-			width: 300px;
-			height: 300px;
-			animation: animacao-estelar-subida 1s linear infinite, rotacao-estrela 10s linear infinite;
-			background: linear-gradient(to right, #FFD700, #ffec00, #fff680);
-			background-size: 200% 100%;
-			background-position: center;
-			-webkit-clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-			clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-
-		}
-
-		@keyframes animacao-estelar-reversa {
-			from {
-				background: linear-gradient(to right, #aa7444, #704214, #46220f);
-				clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-			}
-
-			to {
-				background: linear-gradient(to right, #aa7444, #704214, #46220f);
-				clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-			}
-		}
-
-		#estrela3 {
-			width: 300px;
-			height: 300px;
-			animation: animacao-estelar-reversa 1s linear infinite, rotacao-estrela 10s linear infinite;
-			background: linear-gradient(to right, #aa7444, #704214, #46220f);
-			background-size: 200% 100%;
-			background-position: center;
-			-webkit-clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-			clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-
-		}
-
 		.line {
 			display: inline-block;
 		}
 
-		#estrela2::before,
-		#estrela2::after {
-			position: absolute;
-			width: 20px;
-			height: 30px;
-			background-color: black;
-			border-radius: 50% 50% 40% 40%;
-			top: 35%;
-			transform: translateY(-50%);
-		}
-
-		#estrela2::before {
-			left: 35%;
-		}
-
-		#estrela2::after {
-			right: 35%;
-		}
-
-		#transicao:hover {
+		#transicao1:hover {
 			width: 500px;
-			height: 100px;
+			height: 65px;
 			background: black;
 			color: white;
 			transition: all 1.5s;
 			font-size: 65px;
 		}
 
+		#transicao2{
+			position: relative;
+			top: 0px;
+			bottom: 0px;
+			left: 500px;
+			right: 0px;
+		}
+
 		#transicao2:hover {
-			width: 500px;
-			height: 100px;
+			width: 300px;
+			height: 110px;
 			background: black;
 			color: white;
 			transition: all 1.5s;
-			font-size: 51px;
-			background-position: center;
+			font-size: 50px;
+			text-align: center;
 		}
 
 		#transicao3:hover {
@@ -422,6 +343,7 @@
 			color: white;
 			transition: all 1.5s;
 			font-size: 46px;
+			text-align: center;
 		}
 
 		#transicaolink:hover {
@@ -446,3 +368,73 @@
 			background-color: #54260d;
 			background-size: 100px;
 		}
+		
+footer{
+	text-align: center;
+}
+
+#box{
+height: 20px;
+display: inline;
+justify-content: left;
+border: 3px solid white;
+color: white;
+background-color: black;
+padding: 3px;
+}
+
+		@font-face {
+			font-family: "PzzTwr";
+			src: url("fontes/PzzTwr.woff");
+		}
+
+				@font-face {
+			font-family: "SuperChiby";
+			src: url("fontes/SuperChiby.woff");
+		}
+
+				@font-face {
+			font-family: "Isaac";
+			src: url("fontes/Isaac.woff");
+		}
+
+				@font-face {
+			font-family: "PzzTwr";
+			src: url("fontes/PzzTwr.woff");
+		}
+
+		.imagem_star {
+			cursor: pointer;
+		}
+
+.estrela_frente, .estrela_fundo, #estrela1, .estrela2, #estrela3{
+    display: inline-block;
+    vertical-align: top;
+	align-items: baseline;
+}
+#estrela1{
+	position: relative;
+	z-index: 2;
+}
+
+  .estrela2 {
+    width: 350px;
+    height: 350px;
+    background-image: url('imagens/estrela_basica.png');
+    background-size: cover;
+    transition: background-image 1s ease-in;
+	cursor: pointer;
+  }
+
+  .estrela2:hover {
+    background-image: url('imagens/estrela.png');
+  }
+
+#estrela3{
+	position: relative;
+	z-index: 2;
+}
+
+.textnoselect{
+	user-select: none;
+}
