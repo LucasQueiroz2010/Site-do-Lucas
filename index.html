@@ -9,10 +9,10 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
 	<style type="text/css" class="menu">
 		body {
-			background-image: url(imagens/banner.png), url(imagens/Fundo2.jpeg);
-			background-repeat: no-repeat, no-repeat;
-			background-position: left top, center center;
-			background-size: auto, cover;
+			background-image: url(imagens/Fundo2.jpeg);
+			background-repeat: no-repeat;
+			background-position: left top,;
+			background-size: cover;
 			font-family: Isaac;
 		}
 		
@@ -22,46 +22,46 @@
 <body class="t20px centralizar menu">
 	<!-- <> -->
 
-	<ul>
-		<li><a href="contato.html" class="line menu1">Contatos!</a></li>
-		<li><a href="Site do Lucas.html" class="line menu2">Site do Lucas!</a></li>
-		<li><a href="foto.html" class="line menu3">Veja o Lucas!</a></li>
+	<ul class="sticky-top">
+		<li><a href="contato.html" class="line menu1">Contatos!ﾠ</a></li>
+		<li><a href="Site do Lucas.html" class="line menu2">Site do Lucas!ﾠ</a></li>
+		<li><a href="foto.html" class="line menu3">Veja o Lucas!ﾠ</a></li>
 	</ul><br>
-	<h2 class="Borda line preto" id="sombraB">Página principal</h2>
+	<h2 class="Borda line branco backgroundblack">Página principal</h2>
 
-	<p>Seja bem-vindo a página inicial do site do Lucas!</p>
-	<p>Fique a vontade!</p>
-	<p>Feedbacks sempre são bem vindos!</p>
+	<p class="text-secondary">Seja bem-vindo a página inicial do site do Lucas!</p>
+	<p class="text-secondary">Fique a vontade!</p>
+	<p class="text-secondary">Feedbacks sempre são bem vindos!</p>
 
 	<h2 id="sombraP">Sua opinião! (WIP)</h2>
 
-	<form class="branco borda-texto">
+	<form class="textnoselect branco borda-texto">
 
 		<fieldset>
 			<legend class="esquerda">Informações:</legend>
 
 			<div>
-				<label for="nome" class="esquerda">Nome:ﾠ</label>
+				<label for="nome" class="esquerda text-info">Nome:ﾠ</label>
 				<input type="text" name="nome" id="nome" placeholder="Insira seu nome!" class="this nome" required autofocus>
 			</div>
 
 			<div>
-				<label for="Email" class="esquerda align">Email:</label>
+				<label for="Email" class="esquerda align text-info">Email:</label>
 				<input type="email" name="nome" id="Email" placeholder="Insira seu email!" class="this email" required>
 			</div>
 
 			<div>
-				<label for="senha" class="esquerda align">Senha:</label>
+				<label for="senha" class="esquerda align text-info">Senha:</label>
 				<input type="password" name="nome" id="senha" placeholder="Insira sua senha!" class="this senha" min="6" max="10" required>
 			</div>
-				<label for="data" class="esquerda"><Data></Data>Que dia você nasceu?</label>
-				<input type="date" name="Data" id="Data" placeholder="Que dia é hoje?!" class="this cadeado" required>
+				<label for="data" class="esquerda text-info"><Data></Data>Que dia você nasceu?</label>
+				<input type="date" name="Data" id="Data" placeholder="Que dia é hoje?!" class="this calendario" required>
 			</div>
 
 		</fieldset>
 		
 		<fieldset>
-			<legend class="esquerda">Comentários</legend>
+			<label for="Comente aqui!" class="esquerda text-info">Comentários:</label>
 			<div>
 				<input type="search" name="Comente aqui!" id="Comente aqui!" placeholder="Comente aqui!"
 					class="this comentario">
@@ -69,34 +69,34 @@
 		</fieldset>
 
 		<fieldset>
-			<legend>Lembrar de mim?</legend>
+			<legend class="text-info">Lembrar de mim?</legend>
 			<div>
-				<label for="Sim!">
+				<label class="text-success" for="Sim!">
 					<input type="radio" name="lembrar" id="Sim!">Sim!
 				</label>
 			</div>
 			<div>
-				<label for="Não...">
+				<label class="text-danger" for="Não...">
 					<input type="radio" name="lembrar" id="Não...">Não...
 				</label>
 			</div>
 		</fieldset>
 
 		
-		Esse site é bem feito? <br>
+		<div class="text-info">Esse site é bem feito?</div><br>
 		<div class="centralizar">
 			<div>
-				<label for="Sim">
+				<label class="text-success" for="Sim">
 					<input type="radio" name="bom?" id="Sim" required>Sim
 				</label>
 			</div>
 			<div>
-				<label for="Não">
+				<label class="text-danger" for="Não">
 					<input type="radio" name="bom?" id="Não">Não
 				</label>
 			</div>
 			<div>
-				<label for="S/N">
+				<label class="text-warning" for="S/N">
 					<input type="radio" name="bom?" id="S/N">+/-
 				</label>
 			</div>
@@ -105,11 +105,11 @@
 	</form>
 	<br>
 
-		<div id="estrela1"><img src="imagens/estrela_basica_marrom.png"></div>
+		<div class="estrela1"></div>
 
 		<div class="estrela2"></div>
 
-		<div id="estrela3"><img src="imagens/estrela_basica_marrom.png"></div>
+		<div class="estrela3"></div>
 
 	<footer class="branco">&copy; <time>2025</time> - Lucas Oliveira de Queiroz</footer>
 

@@ -8,13 +8,19 @@
 	<link rel="stylesheet" href="normalize.css">
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<style>
-		body {
-			background-image: url(imagens/Fundocontato.jpeg);
-			background-repeat: no-repeat;
-			background-size: cover;
+
+	body {
+			background-image: url(imagens/BIG_FIT.png), url(imagens/Fundocontato.jpg);
+			background-repeat:no-repeat, no-repeat;
+			background-size:auto, cover;
+			background-position: top right;
+			background-size: auto, unset;
+			background-attachment: fixed;
 			font-family: SuperChiby;
 		}
 
+
+		
 		a {
 			color: white;
 		}
@@ -24,23 +30,67 @@
 
 <body class="t30px menu">
 	
-		<a href="index.html" class="Bordalink esquerda branco" id="transicaolink">
-				Site Principal
+		<a href="index.html" class="Bordalink esquerda branco sticky-top" id="transicaolink">
+				ﾠSite Principalﾠ
 </a>
-	<header class="centralizar branco t40px">Página de contato</header>
+	<header class="centralizar branco t40px">Página de contatos</header>
 
 	<p class="centralizar branco">
-		Seja bem-vindo ao site de contatos do Lucas!
+		Seja bem-vindo ao site de contatos do Lucas! 
 	</p>
 
 	<p class="centralizar branco">
 		Fique a vontade!
 	</p>
 	<br>
-	<p class="centralizar branco"><strong>Lucas Oliveira de Queiroz:</strong> (11) 99522-2506</p>
+	<h2 class="centralizar preto">Informações:</h2>
+	<p class="centralizar preto">Lucas Oliveira de Queiroz: (11) 99522-2506.</p>
+	<p class="centralizar preto">E-mail: (clique para copiar)<div class="texto-copiavel centralizar" id="meuTexto">ﾠmaildolucas2010@gmail.comﾠ</div></p>
+    <p class="centralizar" id="mensagem-confirmacao">ﾠTexto copiado!ﾠ</p>
+	<p class="centralizar preto">Emprego: FIT Gestão Empresarial.</p>
 <br>
-	<p class="t50px branco centralizar">WIP!</p>
+<h2 class="centralizar branco">Redes Sociais:</h2>
+	<p class="centralizar"><a class="instagram" href="https://www.instagram.com/lucasoliveiradequeiroz/">Instagram</a></p>
 
+	<h2 class="centralizar branco">Horários de atendimento: </h2>
+	<p class="centralizar branco">Segunda a Sexta: 9h - 18h</p>
+
+    <script>
+        function copiarTexto() {
+            const elementoTexto = document.getElementById('meuTexto');
+            
+            const areaDeTextoTemp = document.createElement('textarea');
+            areaDeTextoTemp.value = elementoTexto.textContent || elementoTexto.innerText;
+            
+            areaDeTextoTemp.style.position = 'fixed';
+            areaDeTextoTemp.style.top = '0';
+            areaDeTextoTemp.style.left = '0';
+            areaDeTextoTemp.style.opacity = '0';
+            document.body.appendChild(areaDeTextoTemp);
+            
+            areaDeTextoTemp.select();
+            
+            try {
+                const sucesso = document.execCommand('copy');
+                if (sucesso) {
+                    const mensagem = document.getElementById('mensagem-confirmacao');
+                    mensagem.style.display = 'block';
+                    setTimeout(() => {
+                        mensagem.style.display = 'none';
+                    }, 2000);
+                } else {
+                    console.error('Falha ao copiar o texto.');
+                }
+            } catch (err) {
+                console.error('Erro ao tentar copiar o texto: ', err);
+            } finally {
+                document.body.removeChild(areaDeTextoTemp);
+            }
+        }
+
+        document.getElementById('meuTexto').addEventListener('click', copiarTexto);
+    </script>
+<br><br>
 <footer class="branco">&copy; 2025 - Lucas Oliveira de Queiroz</footer>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

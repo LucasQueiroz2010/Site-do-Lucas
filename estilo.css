@@ -55,10 +55,6 @@
 			font-size: 20px;
 		}
 
-		.noscroll {
-			background-attachment: fixed;
-		}
-
 		.t40px {
 			font-size: 40px;
 		}
@@ -127,17 +123,17 @@
 				border: 3px solid black;
 				background: url(imagens/menu.png) no-repeat left bottom;
 			}
-
+			
 			.menu1:hover {
-				background-position: right -50px bottom;
+				background-position: right -45px bottom;
 			}
 
 			.menu2:hover {
-				background-position: right -1px bottom;
+				background-position: right 0px bottom;
 			}
 
 			.menu3:hover {
-				background-position: right -12px bottom;
+				background-position: right -5px bottom;
 			}
 		}
 				
@@ -244,8 +240,8 @@
 			background-image: url(imagens/comentario.png);
 		}
 
-		input.cadeado{
-			background-image: url(imagens/icone-cadeado.png);
+		input.calendario{
+			background-image: url(imagens/calendario.jpg);
 		}
 
 		input.submit {
@@ -295,21 +291,21 @@
 			left: 75px;
 			right: 0px;
 			text-align: right;
-			color: red;
+			color: #54260d;
 			text-decoration: none;
 
 			a {
-				color: red;
-				cursor: wait;
+				color: #54260d;
+				cursor: help;
 			}
 		}
 
 		.fatal_error:hover{
-			cursor: help;
+			cursor: wait;
 
 
 			a{
-			color: red;
+			color: darkred;
 			text-decoration: none;				
 			}
 		}
@@ -442,14 +438,22 @@ padding: 3px;
 			src: url("fontes/PzzTwr.woff");
 		}
 
-.estrela_frente, .estrela_fundo, #estrela1, .estrela2, #estrela3{
+.estrela_frente, .estrela_fundo, .estrela1, .estrela2, .estrela3{
     display: inline-block;
     vertical-align: top;
 	align-items: baseline;
 }
-#estrela1{
-	position: relative;
-	z-index: 2;
+.estrela1{
+    width: 350px;
+    height: 350px;
+    background-image: url('imagens/estrela_basica_marrom.png');
+    background-size: cover;
+    transition: background-image 1s ease-in;
+	cursor: none;
+}
+
+.estrela1:hover{
+	background-image: url(imagens/leaf.png);
 }
 
   .estrela2 {
@@ -465,9 +469,18 @@ padding: 3px;
     background-image: url('imagens/estrela.png');
   }
 
-#estrela3{
-	position: relative;
-	z-index: 2;
+.estrela3{
+    width: 350px;
+    height: 350px;
+    background-image: url('imagens/estrela_basica_marrom.png');
+    background-size: cover;
+    transition: background-image 0.1s ease-in;
+	cursor: none;
+}
+
+.estrela3:hover{
+	background-image: url(imagens/Foto.jpeg);
+	border: 5px solid white;
 }
 
 .textnoselect{
@@ -505,3 +518,35 @@ padding: 3px;
 	font-size: 30px;
 }
 
+.instagram{
+	color: orange;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.instagram:hover{
+	color: darkgoldenrod;
+	text-decoration: none;
+}
+
+        .texto-copiavel {
+            cursor: pointer;
+			color: white;
+			background-color: black;
+			border: 3px solid white;
+            width: fit-content;
+            user-select: none;
+        }
+        .texto-copiavel:hover {
+            background-color: white;
+			color: black;
+			border: 3px solid black;
+        }
+        #mensagem-confirmacao {
+			color: white;
+			background: green;
+			border: 3px solid white;
+			width: fit-content;
+		    display: none;}
+
+			
