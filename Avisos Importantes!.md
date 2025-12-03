@@ -35,4 +35,11 @@ Site do Lucas V1.0: O primeiro site que eu fiz em toda a minha vida, e eu estou 
 1) Foi adicionado o Bootstrap V4.1.3.
 2) Junto com o Bootstrap, todos os sites ficaram compatíveis com o Bootstrap.
 3) Algumas mudanças pequenas de design foram adicionadas/alteradas.
-!_try.remove "fatal_error" failed_!
+!-try.remove "fatal_error" ... task_failed-!
+
+5- Site do Lucas V1.5: Update nos contatos.
+1) A página "Contatos do Lucas" sofreu mudanças severas para melhor.
+2) Alguns menus foram melhorados em detalhes.
+3) Foi adicionado uma interação com as duas estrelas marrom na página "Página Inicial".
+4) Foi removida a interação que ante existia na página "Foto do Lucas!".
+!-try.remove "fatal_error" ... task_failed-!
