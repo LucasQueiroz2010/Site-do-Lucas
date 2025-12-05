@@ -474,7 +474,7 @@ padding: 3px;
     height: 350px;
     background-image: url('imagens/estrela_basica_marrom.png');
     background-size: cover;
-    transition: background-image 0.1s ease-in;
+    transition: background-image 0.3s ease-in;
 	cursor: none;
 }
 
@@ -549,4 +549,13 @@ padding: 3px;
 			width: fit-content;
 		    display: none;}
 
-			
+			.Pizza_Web{
+				text-decoration: none;
+				color: yellow;
+			}
+
+			.Pizza_Web:hover{
+				text-decoration: none;
+				color: orange;
+				cursor: crosshair;
+			}

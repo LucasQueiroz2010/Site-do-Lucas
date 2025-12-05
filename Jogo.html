@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="estilo.css">
+	<link rel="stylesheet" href="normalize.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">	
+    <title>Pizza Tower - Web Edition</title>
+    <style>
+        body {
+            font-family: 'PzzTwr';
+            background-color: #54260d;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h2 {
+            color: orange;
+            text-shadow: 2px 2px yellow;
+        }
+
+        #game-area {
+            width: 800px;
+            height: 400px;
+            border: 5px solid black;
+            
+            background-color: black; 
+            background-image: url(imagens_jogo/back_woag.jpg); 
+            background-size: cover; 
+            background-repeat: no-repeat;
+
+            position: relative;
+            overflow: hidden; 
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+        }
+
+        /* --- SPRITES DE PERSONAGENS --- */
+        #player {
+            width: 40px; 
+            height: 60px;
+            position: absolute;
+            bottom: 0;
+            left: 50px;
+            
+            background-image: url(imagens_jogo/Peppino_stopped.png); 
+            
+            background-size: contain;
+            background-repeat: no-repeat;
+            text-indent: -9999px;
+            
+            border-radius: 5px;
+            z-index: 10;
+            transition: opacity 0.1s;
+        }
+
+        .facing-left {
+            transform: scaleX(-1);
+        }
+        
+        .moving-sprite { background-image: url(imagens_jogo/Peppino_walk.gif); }
+        .running-sprite { background-image: url(imagens_jogo/Peppino_run.png); }
+
+        /* SPRITE DE PULO */
+        .jumping-sprite { background-image: url(imagens_jogo/Peppino_jump.png); }
+
+        .stomp-mode { background-image: url(imagens_jogo/Peppino_jump.png); }
+        .peppino-win-sprite { background-image: url(imagens_jogo/Peppino_win.png); }
+        .peppino-lose-sprite { background-image: url(imagens_jogo/Peppino_lose.png); }
+        
+
+        .invincible {
+            opacity: 0.7;
+            animation: flicker 0.1s infinite alternate;
+        }
+        
+        @keyframes flicker {
+            from { opacity: 1; }
+            to { opacity: 0.7; }
+        }
+        
+        #the-noise {
+            width: 40px;
+            height: 60px;
+            position: absolute;
+            bottom: 0;
+            left: 700px;
+            background-image: url(imagens_jogo/Noise_walk.gif); 
+            background-size: cover;
+            background-repeat: no-repeat;
+            text-indent: -9999px;
+            border-radius: 5px; 
+            z-index: 9;
+            transition: opacity 0.1s;
+        }
+        .noise-jumping { background-image: url(imagens_jogo/Noise_jump.png); }
+        .noise-double-jump { background-image: url(imagens_jogo/Noise_doublejump.png); }
+        
+        .noise-win-sprite { background-image: url(imagens_jogo/Noise_win.png); }
+        
+        .noise-disabled {
+            opacity: 0.7;
+            transform: translateY(10px);
+            background-image: url(imagens_jogo/Noise_hurt.png);
+        }
+
+        /* --- TOPPINGS E UI --- */
+        .platform { position: absolute; background-color: #d98918; border: 3px solid black;}
+        .topping { width: 25px; height: 25px; position: absolute; background-size: contain; background-repeat: no-repeat; text-indent: -9999px; border-radius: 50%; animation: bounce 0.5s infinite alternate; z-index: 8; }
+        .topping-1 { background-image: url(imagens_jogo/Mushroom.webp); }
+        .topping-2 { background-image: url(imagens_jogo/Cheese.webp); }
+        .topping-3 { background-image: url(imagens_jogo/Tomato.webp); }
+        .topping-4 { background-image: url(imagens_jogo/Weiner.webp); }
+        .topping-5 { background-image: url(imagens_jogo/Pineapple.webp); }
+        @keyframes bounce { from { transform: translateY(0px); } to { transform: translateY(-5px); } }
+
+        #ui-bar {
+            width: 800px; margin-bottom: 15px; display: flex; justify-content: space-between;
+            font-size: 1.5em; font-weight: bold; color: yellow;
+        }
+        #score, #timer, #health {
+            background-color: #54260d; padding: 5px 15px; border: 2px solid black;
+            color: white;
+            border-radius: 5px; display: flex; align-items: center; 
+        }
+        #heart-icon { width: 25px; height: 25px; background-image: url(imagens_jogo/Peppino_hat.png); background-size: contain; background-repeat: no-repeat; margin-right: 5px; display: inline-block; }
+        #empty-heart-icon { width: 25px; height: 25px; background-image: url(imagens_jogo/Peppino_hat_damaged.png); background-size: contain; background-repeat: no-repeat; margin-right: 5px; display: inline-block; }
+        .final-rank-image { width: 250px; height: 150px; background-size: contain; background-repeat: no-repeat; background-position: center; margin: 20px auto 0; }
+        .rank-P-image { background-image: url(imagens_jogo/P-Rank.jpg); border: 3px solid black;} 
+        .rank-S-image { background-image: url(imagens_jogo/S-Rank.jpg); border: 3px solid black;}
+        .rank-A-image { background-image: url(imagens_jogo/A-Rank.png); border: 3px solid black;}
+        .rank-B-image { background-image: url(imagens_jogo/B-Rank.jpg); border: 3px solid black;}
+        .rank-C-image { background-image: url(imagens_jogo/C-Rank.png); border: 3px solid black;}
+        .rank-D-image { background-image: url(imagens_jogo/D-Rank.png); border: 3px solid black;}
+        .message { margin-top: 20px; font-size: 2em; font-weight: bold; color: brown; min-height: 50px; }
+    </style>
+</head>
+<body>
+<a class="Bordalink t30px branco" id="transicaolink" href="index.html">ﾠSite Princialﾠ</a>
+    
+    <h2>Pizza Tower - Web Edition</h2>
+
+    <div id="ui-bar">
+        <div id="score">Score: 0</div>
+        <div id="health">Hits: </div>
+        <div id="timer">Time: 60</div>
+    </div>
+
+    <div id="game-area">
+        <div id="player">Peppino</div>
+        <div id="the-noise">Noise</div>
+    </div>
+
+    <div id="status" class="message">
+        Controls: [A/D] to move, [W] to jump and [SHIFT] to run.
+    </div>
+    
+    <button onclick="startGame()" style="margin-top: 20px;">
+        Start!
+    </button>
+    
+    <div id="rank-image-container" class="final-rank-image" style="display:none;"></div> 
+
+    <script>
+        // LÓGICA DO JOGO
+        const GAME_AREA = document.getElementById('game-area');
+        const PLAYER = document.getElementById('player');
+        const NOISE = document.getElementById('the-noise');
+        const SCORE_DISPLAY = document.getElementById('score');
+        const HEALTH_DISPLAY = document.getElementById('health');
+        const TIMER_DISPLAY = document.getElementById('timer');
+        const STATUS_DISPLAY = document.getElementById('status');
+        const RANK_IMAGE_CONTAINER = document.getElementById('rank-image-container');
+        
+        // --- SPRITES ---
+        const PLAYER_IDLE_SPRITE = "url(imagens_jogo/Peppino_stopped.png)"; 
+        const PLAYER_WALK_SPRITE = "url(imagens_jogo/Peppino_walk.gif)";
+        const PLAYER_RUN_SPRITE = "url(imagens_jogo/Peppino_run.png)";
+        const PLAYER_JUMP_SPRITE = "url(imagens_jogo/Peppino_jump.png)";
+        const PLAYER_DEFAULT_SPRITE = PLAYER_IDLE_SPRITE; 
+        
+        const NOISE_IDLE_SPRITE = "url(imagens_jogo/Noise_walk.gif)";
+        const NOISE_JUMP_SPRITE = "url(imagens_jogo/Noise_jump.png)";
+        const NOISE_DOUBLE_JUMP_SPRITE = "url(imagens_jogo/Noise_doublejump.png)";
+        
+        const STOMP_SPRITE = "url(imagens_jogo/Peppino_jump.png)";
+        const STUNNED_SPRITE = "url(imagens_jogo/Noise_hurt.png)";
+        const PEPPINO_WIN_SPRITE = "url(imagens_jogo/Peppino_win.png)";
+        const PEPPINO_LOSE_SPRITE = "url(imagens_jogo/Peppino_lose.png)";
+        const NOISE_WIN_SPRITE = "url(imagens_jogo/Noise_win.png)";
+
+        // --- CONFIGURAÇÕES ---
+        const GAME_HEIGHT = 400; 
+        const PLAYER_WIDTH = 40;
+        const PLAYER_HEIGHT = 60;
+        const NOISE_WIDTH = 40; 
+        const NOISE_HEIGHT = 60;
+        const GRAVITY = 0.5;
+        const JUMP_STRENGTH = 15;
+        const STOMP_INVINCIBILITY_TIME = 3000;
+        const HIT_INVINCIBILITY_TIME = 1500;
+        const WALL_SLIDE_SPEED = 1.5;
+        const WALL_JUMP_HORIZONTAL_PUSH = 10;
+        const MAX_HEALTH = 6; 
+        
+        // --- DADOS DO JOGO ---
+        let score = 0;
+        let time = 60;
+        let isGameOver = true;
+        let health = MAX_HEALTH;
+        let hitsTaken = 0; 
+        let keys = {};
+        
+        // --- POSIÇÃO E ESTADO DO PLAYER ---
+        let playerX = 50;
+        let playerY = 0;
+        let velocityY = 0;
+        let isJumping = false;
+        let isInvincible = false;
+        let isWallSliding = false;
+        let isMoving = false;
+        let playerFacingRight = true;
+        const WALK_SPEED = 5;
+        const RUN_SPEED = 10;
+        let currentSpeed = WALK_SPEED;
+        
+        // --- POSIÇÃO E ESTADO DO NOISE ---
+        let noiseX = 700;
+        let noiseY = 0;
+        let noiseVY = 0;
+        let noiseJumpsUsed = 0;
+        let noiseIsStunned = false; 
+        let noiseFacingRight = false;
+        const NOISE_STUN_TIME = 3000;
+        const MAX_NOISE_JUMPS = 2;
+        const NOISE_SPEED = 4;
+        const NOISE_JUMP_CHANCE = 0.02;
+        const NOISE_JUMP_STRENGTH = 12;
+        let noiseDirection = -1; 
+
+        const TOPPING_CLASSES = ['topping-1', 'topping-2', 'topping-3', 'topping-4', 'topping-5'];
+        const platformData = [
+            { x: 200, y: 150, w: 400, h: 15 }
+        ];
+        
+        let timerInterval;
+        let gameLoopInterval;
+
+        // --- UI E RENDERIZAÇÃO ---
+        function createPlatforms() {
+            document.querySelectorAll('.platform').forEach(p => p.remove());
+            platformData.forEach((data, index) => {
+                const platform = document.createElement('div');
+                platform.classList.add('platform');
+                platform.id = `platform-${index}`;
+                platform.style.left = data.x + 'px';
+                platform.style.bottom = data.y + 'px';
+                platform.style.width = data.w + 'px';
+                platform.style.height = data.h + 'px';
+                GAME_AREA.appendChild(platform);
+            });
+        }
+        
+        function updateHealthDisplay() {
+            let html = '';
+            for(let i = 0; i < MAX_HEALTH; i++) {
+                if (i < health) {
+                    html += `<span id="heart-icon"></span>`;
+                } else {
+                    html += `<span id="empty-heart-icon"></span>`;
+                }
+            }
+            HEALTH_DISPLAY.innerHTML = 'Hits: ' + html;
+        }
+        
+        // NOVO: Função para atualizar o sprite do Peppino (Corrida/Caminhada/Pulo/Idle)
+        function updatePeppinoSprite() {
+            // Se estiver em Stomp/Invencibilidade, o sprite não muda
+            if (PLAYER.classList.contains('invincible')) {
+                return; 
+            }
+
+            // Pulo/Queda/Wall Slide - Prioridade máxima de sprite
+            if (playerY > 0 || isWallSliding) {
+                PLAYER.style.backgroundImage = PLAYER_JUMP_SPRITE;
+                PLAYER.classList.remove('moving-sprite');
+                PLAYER.classList.remove('running-sprite');
+            } 
+            // Movimento/Idle
+            else {
+                const movingHorizontally = keys['arrowright'] || keys['d'] || keys['arrowleft'] || keys['a'];
+                isMoving = movingHorizontally;
+
+                if (isMoving) {
+                    if (currentSpeed === RUN_SPEED) {
+                         // Sprite de Corrida (RUN)
+                        PLAYER.style.backgroundImage = PLAYER_RUN_SPRITE;
+                        PLAYER.classList.add('running-sprite');
+                        PLAYER.classList.remove('moving-sprite');
+                    } else {
+                        // Sprite de Caminhada (WALK)
+                        PLAYER.style.backgroundImage = PLAYER_WALK_SPRITE;
+                        PLAYER.classList.add('moving-sprite');
+                        PLAYER.classList.remove('running-sprite');
+                    }
+                } else {
+                    // Sprite Parado (IDLE)
+                    PLAYER.style.backgroundImage = PLAYER_IDLE_SPRITE;
+                    PLAYER.classList.remove('moving-sprite');
+                    PLAYER.classList.remove('running-sprite');
+                }
+            }
+            
+            // Direcionamento (Facing)
+            if (keys['arrowright'] || keys['d']) {
+                playerFacingRight = true;
+            } else if (keys['arrowleft'] || keys['a']) {
+                playerFacingRight = false;
+            }
+            
+            if (playerFacingRight) {
+                PLAYER.classList.remove('facing-left');
+            } else {
+                PLAYER.classList.add('facing-left');
+            }
+        }
+        
+        function updateNoiseSprite() {
+            if (noiseIsStunned) {
+                return;
+            }
+            
+            // Pulo Duplo - Prioridade sobre pulo normal
+            if (noiseJumpsUsed === 2 && noiseY > 0) {
+                NOISE.style.backgroundImage = NOISE_DOUBLE_JUMP_SPRITE;
+                NOISE.classList.add('noise-double-jump');
+                NOISE.classList.remove('noise-jumping');
+            }
+            // Pulo Normal
+            else if (noiseY > 0) {
+                NOISE.style.backgroundImage = NOISE_JUMP_SPRITE;
+                NOISE.classList.add('noise-jumping');
+                NOISE.classList.remove('noise-double-jump');
+            }
+            // Movimento/Idle
+            else {
+                NOISE.style.backgroundImage = NOISE_IDLE_SPRITE;
+                NOISE.classList.remove('noise-jumping', 'noise-double-jump');
+            }
+            
+            // Direcionamento (Facing)
+            noiseFacingRight = noiseDirection === 1;
+
+            if (noiseFacingRight) {
+                NOISE.classList.remove('facing-left');
+            } else {
+                NOISE.classList.add('facing-left');
+            }
+        }
+
+        // --- Funções de Colisão e Movimento (sem alteração na lógica) ---
+        
+        function checkPlatformCollision() {
+            let onPlatform = false;
+            platformData.forEach(platform => {
+                const horizontalOverlap = playerX < platform.x + platform.w && playerX + PLAYER_WIDTH > platform.x;
+                if (horizontalOverlap) {
+                    const landingZone = playerY + velocityY <= platform.y + platform.h && playerY >= platform.y + platform.h;
+                    if (landingZone) {
+                        playerY = platform.y + platform.h; velocityY = 0; isJumping = false; onPlatform = true;
+                    }
+                }
+            });
+            return onPlatform;
+        }
+        
+        function checkNoisePlatformCollision() {
+            let onPlatform = false;
+            platformData.forEach(platform => {
+                const horizontalOverlap = noiseX < platform.x + platform.w && noiseX + NOISE_WIDTH > platform.x;
+                if (horizontalOverlap) {
+                    const landingZone = noiseY + noiseVY <= platform.y + platform.h && noiseY >= platform.y + platform.h;
+                    if (landingZone) {
+                        noiseY = platform.y + platform.h; noiseVY = 0; noiseJumpsUsed = 0; onPlatform = true;
+                    }
+                }
+            });
+            return onPlatform;
+        }
+
+        function updatePlayerPosition() {
+            let onPlatform = checkPlatformCollision();
+            let isGrounded = playerY === 0 || onPlatform;
+
+            const onLeftWall = playerX <= 0;
+            const onRightWall = playerX >= GAME_AREA.clientWidth - PLAYER_WIDTH;
+            
+            if (!isGrounded && ((onLeftWall && (keys['ArrowLeft'] || keys['a'])) || (onRightWall && (keys['ArrowRight'] || keys['d'])))) {
+                isWallSliding = true;
+                if (velocityY < -WALL_SLIDE_SPEED) { velocityY = -WALL_SLIDE_SPEED; }
+            } else {
+                isWallSliding = false;
+            }
+
+            if (keys['arrowright'] || keys['d']) { playerX += currentSpeed; }
+            if (keys['arrowleft'] || keys['a']) { playerX -= currentSpeed; }
+            
+            if (!isWallSliding && !onPlatform) { velocityY -= GRAVITY; }
+            playerY += velocityY;
+            
+            if (playerY >= GAME_HEIGHT - PLAYER_HEIGHT) { playerY = GAME_HEIGHT - PLAYER_HEIGHT; if (velocityY > 0) { velocityY = 0; } }
+            if (playerY <= 0) { playerY = 0; velocityY = 0; isJumping = false; }
+            playerX = Math.max(0, Math.min(GAME_AREA.clientWidth - PLAYER_WIDTH, playerX));
+
+            PLAYER.style.left = playerX + 'px';
+            PLAYER.style.bottom = playerY + 'px';
+        }
+        
+        function playerJump() {
+            if (playerY === 0 || checkPlatformCollision()) { 
+                velocityY = JUMP_STRENGTH;
+                isJumping = true;
+            } else if (isWallSliding) {
+                velocityY = JUMP_STRENGTH;
+                isJumping = true;
+                isWallSliding = false;
+
+                const onLeftWall = playerX <= 0;
+                if (onLeftWall) { playerX += WALL_JUMP_HORIZONTAL_PUSH; } else { playerX -= WALL_JUMP_HORIZONTAL_PUSH; }
+            }
+        }
+
+        function updateNoisePosition() {
+            if (noiseIsStunned) { return; }
+            let onPlatform = checkNoisePlatformCollision();
+
+            const noisePrevX = noiseX;
+            noiseX += noiseDirection * NOISE_SPEED;
+            if (noiseX <= 0 || noiseX >= GAME_AREA.clientWidth - NOISE_WIDTH) { 
+                noiseDirection *= -1; 
+                noiseX = Math.max(0, Math.min(GAME_AREA.clientWidth - NOISE_WIDTH, noiseX));
+            }
+            
+            if (!onPlatform) { noiseVY -= GRAVITY; }
+            noiseY += noiseVY;
+            
+            if (noiseY <= 0) { noiseY = 0; noiseVY = 0; noiseJumpsUsed = 0; } 
+            
+            if (noiseY === 0 || onPlatform) { 
+                if (Math.random() < NOISE_JUMP_CHANCE) { jumpNoise(); }
+            } else if (noiseJumpsUsed === 1 && Math.random() < NOISE_JUMP_CHANCE / 2) { jumpNoise(); }
+            
+            NOISE.style.left = noiseX + 'px';
+            NOISE.style.bottom = noiseY + 'px';
+        }
+
+        function jumpNoise() {
+            if (noiseJumpsUsed < MAX_NOISE_JUMPS) {
+                 noiseVY = NOISE_JUMP_STRENGTH;
+                 noiseJumpsUsed++;
+            }
+        }
+
+        function checkCollision() {
+            const playerRect = PLAYER.getBoundingClientRect();
+            const toppings = document.querySelectorAll('.topping');
+            toppings.forEach(topping => {
+                const toppingRect = topping.getBoundingClientRect();
+                if (isColliding(playerRect, toppingRect)) {
+                    collectTopping(topping);
+                }
+            });
+
+            const noiseRect = NOISE.getBoundingClientRect();
+            if (isColliding(playerRect, noiseRect) && !isInvincible && !noiseIsStunned) {
+                const isStomping = (velocityY < 0) && (playerY > noiseY + NOISE_HEIGHT - 10);
+                
+                if (isStomping) {
+                    handleNoiseStomp();
+                } else {
+                    handleNoiseHit();
+                }
+            }
+        }
+        
+        function isColliding(rect1, rect2) {
+            return (rect1.left < rect2.right && rect1.right > rect2.left &&
+                    rect1.bottom > rect2.top && rect1.top < rect2.bottom);
+        }
+
+        function handleNoiseStomp() {
+            velocityY = JUMP_STRENGTH / 2;
+            isInvincible = true;
+            PLAYER.classList.add('invincible', 'stomp-mode');
+            
+            noiseIsStunned = true;
+            NOISE.classList.add('noise-disabled');
+            NOISE.style.backgroundImage = STUNNED_SPRITE;
+            
+            STATUS_DISPLAY.textContent = `The Noise was stomped!`;
+
+            setTimeout(() => {
+                isInvincible = false;
+                PLAYER.classList.remove('invincible', 'stomp-mode');
+                STATUS_DISPLAY.textContent = 'Get the Toppings!';
+            }, STOMP_INVINCIBILITY_TIME);
+
+            setTimeout(() => {
+                noiseIsStunned = false;
+                NOISE.classList.remove('noise-disabled');
+                NOISE.style.backgroundImage = NOISE_IDLE_SPRITE;
+            }, NOISE_STUN_TIME);
+        }
+        
+        function handleNoiseHit() {
+            health--;
+            hitsTaken++;
+            updateHealthDisplay();
+
+            if (health <= 0) {
+                endGame();
+                return;
+            }
+
+            isInvincible = true;
+            PLAYER.classList.add('invincible');
+            
+            const pushBack = 70; 
+            if (playerX < noiseX) { playerX -= pushBack; } else { playerX += pushBack; }
+            playerX = Math.max(0, Math.min(GAME_AREA.clientWidth - PLAYER_WIDTH, playerX));
+            
+            STATUS_DISPLAY.textContent = `You hurt Peppino! ${health} remaining Hit(s).`;
+            
+            setTimeout(() => {
+                isInvincible = false;
+                PLAYER.classList.remove('invincible');
+                STATUS_DISPLAY.textContent = 'Get the Toppings!';
+            }, HIT_INVINCIBILITY_TIME);
+        }
+
+        function collectTopping(toppingElement) {
+            if (isGameOver) return;
+            score += 100;
+            SCORE_DISPLAY.textContent = `Score: ${score}`;
+            toppingElement.remove();
+        }
+
+        function spawnTopping() {
+            if (isGameOver) return;
+            
+            const topping = document.createElement('div');
+            const randomToppingClass = TOPPING_CLASSES[Math.floor(Math.random() * TOPPING_CLASSES.length)];
+            topping.classList.add('topping', randomToppingClass);
+            topping.textContent = 'I'; 
+            
+            const spawnPoints = [
+                0, 
+                platformData[0].y + platformData[0].h + 20,
+            ];
+
+            const yPos = spawnPoints[Math.floor(Math.random() * spawnPoints.length)];
+            const xPos = Math.random() * (GAME_AREA.clientWidth - 50);
+
+            topping.style.left = xPos + 'px';
+            topping.style.bottom = yPos + 'px';
+            GAME_AREA.appendChild(topping);
+        }
+
+        function gameLoop() {
+            updatePeppinoSprite(); 
+            updateNoiseSprite();
+            updatePlayerPosition();
+            updateNoisePosition();
+            checkCollision();
+            
+            score = Math.max(0, score);
+        }
+
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                time--;
+                TIMER_DISPLAY.textContent = `Time: ${time}`;
+
+                if (time <= 0) {
+                    clearInterval(timerInterval);
+                    endGame(true);
+                }
+            }, 1000);
+        }
+
+        function endGame(timeUp = false) {
+            isGameOver = true;
+            clearInterval(gameLoopInterval);
+            document.querySelectorAll('.topping').forEach(t => t.remove());
+            RANK_IMAGE_CONTAINER.style.display = 'none';
+            
+            // FIM DO JOGO
+            if (health <= 0) {
+                 STATUS_DISPLAY.textContent = `The Noise Wins! Final score: ${score} points.`;
+                 STATUS_DISPLAY.style.color = 'yellow';
+                 
+                 PLAYER.style.backgroundImage = PEPPINO_LOSE_SPRITE; 
+                 NOISE.style.backgroundImage = NOISE_WIN_SPRITE;    
+                 NOISE.classList.remove('facing-left'); 
+
+            } else if (timeUp) {
+                const rankData = calculateRank(hitsTaken, score);
+                
+                STATUS_DISPLAY.textContent = `(Score: ${score})`;
+                STATUS_DISPLAY.style.color = '#007bff';
+                
+                RANK_IMAGE_CONTAINER.style.display = 'block';
+                RANK_IMAGE_CONTAINER.className = `final-rank-image ${rankData.rankClass}`;
+                
+                PLAYER.style.backgroundImage = PEPPINO_WIN_SPRITE; 
+                NOISE.style.backgroundImage = NOISE_IDLE_SPRITE;   
+                NOISE.classList.remove('facing-left');
+                
+            }
+            
+            // Pausa a animação, remove movimento e força o estado final
+            PLAYER.classList.remove('moving-sprite', 'running-sprite', 'stomp-mode', 'invincible');
+            NOISE.classList.remove('noise-disabled', 'noise-jumping', 'noise-double-jump');
+            STATUS_DISPLAY.style.display = 'block';
+        }
+
+        // --- Controles de Teclado ---
+        document.addEventListener('keydown', (e) => {
+            if (isGameOver) return;
+            keys[e.key.toLowerCase()] = true;
+
+            if ((e.key === ' ' || e.key === 'Spacebar' || e.key.toLowerCase() === 'w')) { playerJump(); }
+            if (e.key === 'Shift') { currentSpeed = RUN_SPEED; PLAYER.textContent = 'Peppino'; }
+        });
+
+        document.addEventListener('keyup', (e) => {
+            keys[e.key.toLowerCase()] = false;
+
+            if (e.key === 'Shift') { currentSpeed = WALK_SPEED; PLAYER.textContent = 'Peppino'; }
+        });
+
+        // --- Inicialização ---
+        function startGame() {
+            if (!isGameOver) { endGame(); }
+            
+            score = 0; time = 60; health = MAX_HEALTH; hitsTaken = 0; isGameOver = false;
+            keys = {}; currentSpeed = WALK_SPEED; isInvincible = false; isWallSliding = false;
+            noiseIsStunned = false; playerFacingRight = true; 
+            
+            // RESETAR SPRITES
+            PLAYER.classList.remove('invincible', 'stomp-mode', 'facing-left', 'running-sprite', 'moving-sprite');
+            PLAYER.style.backgroundImage = PLAYER_IDLE_SPRITE; 
+            NOISE.classList.remove('noise-disabled', 'facing-left', 'noise-jumping', 'noise-double-jump');
+            NOISE.style.backgroundImage = NOISE_IDLE_SPRITE;
+            RANK_IMAGE_CONTAINER.style.display = 'none';
+
+            clearInterval(timerInterval); clearInterval(gameLoopInterval);
+            
+            // Reseta UI
+            SCORE_DISPLAY.textContent = 'Score: 0'; TIMER_DISPLAY.textContent = 'Time: 60';
+            updateHealthDisplay();
+            STATUS_DISPLAY.textContent = 'Use the plataform to get the Toppings!';
+            STATUS_DISPLAY.className = 'message'; STATUS_DISPLAY.style.color = '#007bff'; STATUS_DISPLAY.style.display = 'block';
+
+            playerX = 50; playerY = 0; noiseX = 700; noiseY = 0;
+            PLAYER.style.left = playerX + 'px'; PLAYER.style.bottom = playerY + 'px';
+            NOISE.style.left = noiseX + 'px'; NOISE.style.bottom = noiseY + 'px';
+            
+            document.querySelectorAll('.topping').forEach(t => t.remove());
+            createPlatforms();
+            
+            startTimer();
+            gameLoopInterval = setInterval(gameLoop, 1000 / 60);
+            
+            for(let i = 0; i < 5; i++) { spawnTopping(); }
+            setInterval(spawnTopping, 2000); 
+        }
+
+        window.onload = () => {
+             isGameOver = true; 
+             updateHealthDisplay();
+        }
+    </script>
+
+</body>
+</html>

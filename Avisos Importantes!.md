@@ -49,3 +49,9 @@ Site do Lucas V1.0: O primeiro site que eu fiz em toda a minha vida, e eu estou 
 2) Acidentalmente, na versão 1.5.2, foi enviado nada, além do arquivo de fotos, oque já foi corrigido.
 3) A versão 1.5.3 é a versão onde tudo da versão 1.5 foi implementado, além da mudança do README.
 4) Na versão 1.5.4, foi adicionado uma imagem que estava faltando, além da edição do README.
+!-try.remove "fatal_error" ... task_failed-!
+
+6- Site do Lucas V1.6: adição GAMER.
+1) Pizza Tower - Web edition foi adicionado na parte mais baixa da "Página principal".
+2) Pequenas mudanças de qualidade de vida/detalhes.
+!-try.remove "fatal_error" ... task_failed-!
