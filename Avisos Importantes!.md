@@ -64,3 +64,7 @@ O primeiro site que eu fiz em toda a minha vida, e eu estou agora, deixando-o p�
 5) Foi adicinado uma tela de início para o jogo.
 6) Foi adicionado um botão de mute/unmute.  
 !-try.remove "fatal_error" ... task_failed-!
+
+7.1- Site do Lucas V1.7.1
+1) Mudanças no README.
+2) Mudanças pequenas no "jogo.html"
