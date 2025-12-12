@@ -1,7 +1,7 @@
-# Site do Lucas V1.2.2
+Atualizações abaixo:
 
-
-Site do Lucas V1.0: O primeiro site que eu fiz em toda a minha vida, e eu estou agora, deixando-o público. Então obrigado por visitá-lo!  (Só para avisar, esse site ainda está imcompleto, ou seja, espere por mais atualizações!). Eu gostaria de agradecer meu irmão Davi por ter falado com meus pais (os donos da empresa) para que eu possa trabalhar com 15 anos. Agradeço também o meu pai Icaro e minha mãe Taynan por me deixarem trabalhar na FIT Gestão empresarial (a empresa dos dois). Agradeço também ao Renan e ao Felipe (duas pessoas que trabalham na minha área) por serem tão legais comigo, mesmo eu sendo um novato. Agradeçimentos especiais ao Bruno, que me ajudou a publicar o site no GitHub.
+0- Site do Lucas V1.0: o começo de tudo.
+O primeiro site que eu fiz em toda a minha vida, e eu estou agora, deixando-o público. Então obrigado por visitá-lo!  (Só para avisar, esse site ainda está imcompleto, ou seja, espere por mais atualizações!). Eu gostaria de agradecer meu irmão Davi por ter falado com meus pais (os donos da empresa) para que eu possa trabalhar com 15 anos. Agradeço também o meu pai Icaro e minha mãe Taynan por me deixarem trabalhar na FIT Gestão empresarial (a empresa dos dois). Agradeço também ao Renan e ao Felipe (duas pessoas que trabalham na minha área) por serem tão legais comigo, mesmo eu sendo um novato. Agradeçimentos especiais ao Bruno, que me ajudou a publicar o site no GitHub.
 
 1- Site do Lucas V1.1: Pequenas adições.
 1) Foi adicionado: uma nova fonte personalizada.
@@ -54,4 +54,13 @@ Site do Lucas V1.0: O primeiro site que eu fiz em toda a minha vida, e eu estou 
 6- Site do Lucas V1.6: adição GAMER.
 1) Pizza Tower - Web edition foi adicionado na parte mais baixa da "Página principal".
 2) Pequenas mudanças de qualidade de vida/detalhes.
+!-try.remove "fatal_error" ... task_failed-!
+
+7- Site do Lucas V1.7: atualização GAMER.
+1) Muitos sprites novos (Peppino_wall, Noise_joke, Gerome.webp, etc.) foram adicionados.
+2) Foi adicionado o poder Pepper Pizza, que faz você ficar invencivel por 5 segundos.
+3) Foi adicionado um "topping de HP", que tem 20% de chance de dropar quando o Noise recebe dano.
+4) Foi adicionado uma soundtrack inteira para o jogo.
+5) Foi adicinado uma tela de início para o jogo.
+6) Foi adicionado um botão de mute/unmute.  
 !-try.remove "fatal_error" ... task_failed-!
